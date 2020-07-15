@@ -1,11 +1,17 @@
 package com.deviget.challenge.minesweeper.domain;
 
-public class NumCell implements Cell {
+public class NumCell extends Cell {
     private final int neighborsMines;
 
     public NumCell(int neighborsMines) {
-        Validator.validateGraterThanZero(neighborsMines, "neighborsMines");
+        super();
+        Validator.validatePositive(neighborsMines, "neighborsMines");
         this.neighborsMines = neighborsMines;
+    }
+
+    @Override
+    public String toString() {
+        return print();
     }
 
     @Override
@@ -19,7 +25,7 @@ public class NumCell implements Cell {
     }
 
     @Override
-    public String toString() {
-        return print();
+    protected void doReveal() {
+        this.setReveled(true);
     }
 }

@@ -1,6 +1,12 @@
 package com.deviget.challenge.minesweeper.domain;
 
-public class MineCell implements Cell {
+public class MineCell extends Cell {
+
+    @Override
+    public String toString() {
+        return print();
+    }
+
     @Override
     public boolean isMine() {
         return true;
@@ -12,7 +18,7 @@ public class MineCell implements Cell {
     }
 
     @Override
-    public String toString() {
-        return print();
+    protected void doReveal() throws MineExplosionException {
+        throw new MineExplosionException();
     }
 }

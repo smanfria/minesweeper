@@ -9,13 +9,13 @@ class NumCellTest {
 
     @Test
     void isMine() {
-        final Cell cell = new NumCell(5);
+        final NumCell cell = new NumCell(5);
         Assertions.assertFalse(cell.isMine());
     }
 
     @Test
     void print() {
-        final Cell cell = new NumCell(5);
+        final NumCell cell = new NumCell(5);
         Assertions.assertEquals("5", cell.print());
     }
 
@@ -24,5 +24,40 @@ class NumCellTest {
         assertThrows(IllegalArgumentException.class, () -> {
             new NumCell(-5);
         });
+    }
+
+    @Test
+    void reveal() throws MineExplosionException {
+        final NumCell cell = new NumCell(5);
+        Assertions.assertFalse(cell.isFlagged());
+        Assertions.assertFalse(cell.isReveled());
+
+        cell.reveal();
+
+        Assertions.assertTrue(cell.isReveled());
+    }
+
+    @Test
+    void isFlagged() {
+        final NumCell cell = new NumCell(5);
+        Assertions.assertFalse(cell.isFlagged());
+    }
+
+    @Test
+    void isReveled() {
+        final NumCell cell = new NumCell(5);
+        Assertions.assertFalse(cell.isReveled());
+    }
+
+    @Test
+    void flag() {
+        final NumCell cell = new NumCell(5);
+        Assertions.assertFalse(cell.isFlagged());
+        Assertions.assertFalse(cell.isReveled());
+
+        cell.flag();
+
+        Assertions.assertTrue(cell.isFlagged());
+        Assertions.assertFalse(cell.isReveled());
     }
 }

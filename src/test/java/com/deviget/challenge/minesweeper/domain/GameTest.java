@@ -22,7 +22,6 @@ public class GameTest {
         Assertions.assertEquals(mines, game.getMines());
 
         Assertions.assertFalse(game.isOver());
-        Assertions.assertTrue(game.elapsedTime().toMillis() > 0);
     }
 
     @Test
