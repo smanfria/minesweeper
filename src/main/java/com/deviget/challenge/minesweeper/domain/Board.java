@@ -7,14 +7,17 @@ public class Board {
     private final int rows;
     private final int columns;
     private final int mines;
-
+    private final int cellsCount;
     private final Cell[][] cells;
+    private int reveledCount;
 
     private Board(int rows, int columns, int mines) {
         this.rows = rows;
         this.columns = columns;
         this.mines = mines;
         this.cells = new Cell[rows][columns];
+        this.reveledCount = 0;
+        this.cellsCount = rows * columns;
     }
 
     static Board create(int rows, int columns, int mines) {
@@ -25,36 +28,74 @@ public class Board {
         Board board = new Board(rows, columns, mines);
         board.init();
 
-        //print(board.cells);
         return board;
     }
 
-    private static void print(Cell[][] cells) {
+    public boolean isCompleted() {
+        return cellsCount - mines == reveledCount;
+    }
+
+    void print() {
         for (Cell[] row : cells) {
             System.out.println(Arrays.toString(row));
         }
     }
 
-    public int getRows() {
+    int getRows() {
         return rows;
     }
 
-    public int getColumns() {
+    int getColumns() {
         return columns;
     }
 
-    public int getMines() {
+    int getMines() {
         return mines;
     }
 
-    void reveal(int row, int column) {
+    void reveal(int row, int column) throws MineExplosionException {
         isValidCell(row, column);
 
+        boolean[][] visited = new boolean[cells.length][cells[0].length];
+
+        Queue<Integer[]> queue = new LinkedList<>();
+        queue.add(new Integer[]{row, column});
+
+        while (!queue.isEmpty()) {
+            final Integer[] cellIdx = queue.poll();
+            final Integer currentRow = cellIdx[0];
+            final Integer currentColumn = cellIdx[1];
+
+            if (!visited[currentRow][currentColumn]) {
+                visited[currentRow][currentColumn] = true;
+                revealCell(currentRow, currentColumn);
+                List<Integer[]> unvisitedNotMineNeighbors = getUnvisitedNotMineNeighbors(currentRow, currentColumn, cells, visited);
+                queue.addAll(unvisitedNotMineNeighbors);
+            }
+        }
     }
 
     void flag(int row, int column) {
         isValidCell(row, column);
+        Cell cell = cells[row][column];
+        cell.flag();
+    }
 
+    private void revealCell(Integer row, Integer column) throws MineExplosionException {
+        Cell cell = cells[row][column];
+        reveledCount = reveledCount + 1;
+        cell.reveal();
+    }
+
+    private List<Integer[]> getUnvisitedNotMineNeighbors(Integer currentRow, Integer currentColumn, Cell[][] cells,
+                                                         boolean[][] visited) {
+        final List<Integer[]> neighbors = this.getNeighbors(currentRow, currentColumn, cells);
+        return neighbors.stream().filter(cell -> {
+            final Integer row = cell[0];
+            final Integer column = cell[1];
+            final Cell currentCell = cells[row][column];
+            return !visited[row][column] && !currentCell.isMine() && !currentCell.isReveled() && !currentCell.isFlagged();
+        }).collect(Collectors.toList());
     }
 
     private void init() {
@@ -70,9 +111,7 @@ public class Board {
                 if (!visited[row][column]) {
                     initCells(row, column, cells, visited);
                 }
-
             }
-
         }
     }
 

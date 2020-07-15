@@ -14,8 +14,10 @@ class NumCellTest {
     }
 
     @Test
-    void print() {
+    void print() throws MineExplosionException {
         final NumCell cell = new NumCell(5);
+        Assertions.assertEquals(" ", cell.print());
+        cell.reveal();
         Assertions.assertEquals("5", cell.print());
     }
 

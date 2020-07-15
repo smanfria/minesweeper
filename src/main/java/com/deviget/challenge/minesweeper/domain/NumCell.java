@@ -20,7 +20,7 @@ public class NumCell extends Cell {
     }
 
     @Override
-    public String print() {
+    public String doPrint() {
         return String.valueOf(neighborsMines);
     }
 

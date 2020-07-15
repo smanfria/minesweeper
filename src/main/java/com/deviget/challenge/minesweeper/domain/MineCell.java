@@ -13,12 +13,13 @@ public class MineCell extends Cell {
     }
 
     @Override
-    public String print() {
+    public String doPrint() {
         return "m";
     }
 
     @Override
     protected void doReveal() throws MineExplosionException {
+        this.setReveled(true);
         throw new MineExplosionException();
     }
 }

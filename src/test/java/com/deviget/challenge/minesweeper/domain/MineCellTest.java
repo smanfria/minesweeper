@@ -16,6 +16,12 @@ class MineCellTest {
     @Test
     void print() {
         final MineCell mineCell = new MineCell();
+        Assertions.assertEquals(" ", mineCell.print());
+        try {
+            mineCell.reveal();
+        } catch (MineExplosionException ignore) {
+
+        }
         Assertions.assertEquals("m", mineCell.print());
     }
 

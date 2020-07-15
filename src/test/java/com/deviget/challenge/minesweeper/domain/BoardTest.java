@@ -21,8 +21,8 @@ class BoardTest {
     }
 
     @Test
-    void testRevealCell() {
-        Board board = Board.create(rows, columns, mines);
+    void testRevealCell() throws MineExplosionException {
+        Board board = Board.create(rows, columns, 1);
         board.reveal(5, 5);
     }
 
@@ -46,6 +46,13 @@ class BoardTest {
             Board board = Board.create(rows, columns, mines);
             board.flag(-5, -5);
         });
+    }
+
+    @Test
+    void testisCompleted() {
+        Board board = Board.create(rows, columns, mines);
+        board.flag(5, 5);
+        Assertions.assertFalse(board.isCompleted());
     }
 
 }

@@ -1,6 +1,9 @@
 package com.deviget.challenge.minesweeper.domain;
 
 public abstract class Cell {
+    private static final String NOT_REVELED_CELL = " ";
+    private static final String FLAGGED_CELL = "f";
+
     private boolean flagged;
     private boolean reveled;
 
@@ -27,7 +30,16 @@ public abstract class Cell {
 
     abstract boolean isMine();
 
-    abstract String print();
+    String print() {
+        if (this.isReveled()) {
+            return doPrint();
+        }
+
+        if (this.isFlagged()) {
+            return FLAGGED_CELL;
+        }
+        return NOT_REVELED_CELL;
+    }
 
     boolean isFlagged() {
         return flagged;
@@ -44,6 +56,8 @@ public abstract class Cell {
     protected void setReveled(boolean reveled) {
         this.reveled = reveled;
     }
+
+    protected abstract String doPrint();
 
     protected abstract void doReveal() throws MineExplosionException;
 }
