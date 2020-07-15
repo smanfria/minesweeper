@@ -8,7 +8,7 @@ public class Validator {
         }
     }
 
-    static void validate(int intValue, String paramName) {
+    static void validateGraterThanZero(int intValue, String paramName) {
         if (intValue <= 0) {
             throw new IllegalArgumentException("Invalid value [" + intValue + "] for param [" + paramName + "].");
         }

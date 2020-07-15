@@ -18,9 +18,9 @@ public class Board {
     }
 
     static Board create(int rows, int columns, int mines) {
-        Validator.validate(rows, "rows");
-        Validator.validate(columns, "columns");
-        Validator.validate(mines, "mines");
+        Validator.validateGraterThanZero(rows, "rows");
+        Validator.validateGraterThanZero(columns, "columns");
+        Validator.validateGraterThanZero(mines, "mines");
 
         Board board = new Board(rows, columns, mines);
         board.init();

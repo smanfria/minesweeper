@@ -4,6 +4,7 @@ public class NumCell implements Cell {
     private final int neighborsMines;
 
     public NumCell(int neighborsMines) {
+        Validator.validateGraterThanZero(neighborsMines, "neighborsMines");
         this.neighborsMines = neighborsMines;
     }
 
