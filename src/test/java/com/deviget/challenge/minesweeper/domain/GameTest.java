@@ -21,7 +21,7 @@ public class GameTest {
         Assertions.assertEquals(columns, game.getColumns());
         Assertions.assertEquals(mines, game.getMines());
 
-        Assertions.assertFalse(game.isEnded());
+        Assertions.assertFalse(game.isOver());
         Assertions.assertTrue(game.elapsedTime().toMillis() > 0);
     }
 
@@ -43,5 +43,33 @@ public class GameTest {
     @Test
     void testInvalidMinesThrowsException() {
         assertThrows(IllegalArgumentException.class, () -> Game.create(username, rows, columns, 0));
+    }
+
+    @Test
+    void testRevealCell() {
+        Game game = Game.create(username, rows, columns, mines);
+        game.reveal(5, 5);
+    }
+
+    @Test
+    void testFlagCell() {
+        Game game = Game.create(username, rows, columns, mines);
+        game.flag(5, 5);
+    }
+
+    @Test
+    void testInvalidRevealThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Game game = Game.create(username, rows, columns, mines);
+            game.reveal(-5, -5);
+        });
+    }
+
+    @Test
+    void testInvalidFlagThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Game game = Game.create(username, rows, columns, mines);
+            game.flag(-5, -5);
+        });
     }
 }

@@ -5,37 +5,18 @@ import java.time.LocalDateTime;
 
 public class Game {
     private final String username;
-    private final int rows;
-    private final int columns;
-    private final int mines;
+    private final Board board;
     private final LocalDateTime startTime;
 
     private Game(String username, int rows, int columns, int mines) {
         this.username = username;
-        this.rows = rows;
-        this.columns = columns;
-        this.mines = mines;
+        this.board = Board.create(rows, columns, mines);
         this.startTime = LocalDateTime.now();
     }
 
     public static Game create(String username, int rows, int columns, int mines) {
-        validate(username);
-        validate(rows, "rows");
-        validate(columns, "columns");
-        validate(mines, "mines");
+        Validator.validate(username);
         return new Game(username, rows, columns, mines);
-    }
-
-    private static void validate(int intValue, String paramName) {
-        if (intValue <= 0) {
-            throw new IllegalArgumentException("Invalid value [" + intValue + "] for param [" + paramName + "].");
-        }
-    }
-
-    private static void validate(String username) {
-        if (username == null || "".equals(username.trim())) {
-            throw new IllegalArgumentException("Invalid username.");
-        }
     }
 
     public String getUsername() {
@@ -43,22 +24,30 @@ public class Game {
     }
 
     public int getRows() {
-        return rows;
+        return board.getRows();
     }
 
     public int getColumns() {
-        return columns;
+        return board.getColumns();
     }
 
     public int getMines() {
-        return mines;
+        return board.getMines();
     }
 
-    public boolean isEnded() {
+    public boolean isOver() {
         return false;
     }
 
     public Duration elapsedTime() {
         return Duration.between(startTime, LocalDateTime.now());
+    }
+
+    public void reveal(int row, int column) {
+        board.reveal(row, column);
+    }
+
+    public void flag(int row, int column) {
+        board.flag(row, column);
     }
 }
