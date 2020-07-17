@@ -1,9 +1,8 @@
 package com.deviget.challenge.minesweeper.application;
 
-import com.deviget.challenge.minesweeper.domain.GameRequest;
-import com.deviget.challenge.minesweeper.domain.GameService;
-import com.deviget.challenge.minesweeper.domain.NewGameDTO;
+import com.deviget.challenge.minesweeper.domain.*;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +19,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -28,10 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class GameControllerTest {
     private static final String ENDPOINT = "/api/game/";
 
-    private static final String ROWS = "rows";
-    private static final String COLUMNS = "columns";
-    private static final String MINES = "mines";
-    private static final String USERNAME = "username";
+    private static final String ID = "id";
+
 
     private final MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
     private MockMvc mvc;
@@ -53,33 +51,76 @@ class GameControllerTest {
     void newGame() throws Exception {
         final String username = "test";
         final String id = "gameId";
+
         Mockito.when(service.create(any(GameRequest.class))).thenReturn(new NewGameDTO(id, username));
 
-        //TODO
-        String jsonBody = "";
+        GameRequest gameRequest = new GameRequest(username, 10, 10, 10);
+
         final ResultActions resultActions = mvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonBody));
+                .content(toJson(gameRequest)));
 
         resultActions
                 .andExpect(status().is(HttpStatus.CREATED.value()))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.username", is(username)))
-                .andExpect(jsonPath("$.id", is(id)));
+                .andExpect(jsonPath("$.game_id", is(id)));
     }
 
     @Test
-    void getGame() {
-        //TODO
+    void getGame() throws Exception {
+        final String username = "test";
+        final String id = "gameId";
+
+        Mockito.when(service.get(id)).thenReturn(new GameDTO(id, username));
+
+        final ResultActions resultActions = mvc.perform(get(ENDPOINT + "/{id}", id));
+
+        resultActions
+                .andExpect(status().is(HttpStatus.OK.value()))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.game_id", is(id)));
     }
 
     @Test
-    void reveal() {
-        //TODO
+    void reveal() throws Exception {
+        final String username = "test";
+        final String id = "gameId";
+        CellRequest cellRequest = new CellRequest(0, 0);
+
+
+        Mockito.when(service.reveal(id, cellRequest)).thenReturn(new GameDTO(id, username));
+
+
+        final ResultActions resultActions = mvc.perform(put(ENDPOINT + "/{id}/reveal", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(cellRequest)));
+        resultActions
+                .andExpect(status().is(HttpStatus.OK.value()))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.game_id", is(id)));
     }
 
     @Test
-    void flag() {
-        //TODO
+    void flag() throws Exception {
+        final String username = "test";
+        final String id = "gameId";
+        CellRequest cellRequest = new CellRequest(0, 0);
+
+        Mockito.when(service.flag(id, cellRequest)).thenReturn(new GameDTO(id, username));
+
+        final ResultActions resultActions = mvc.perform(put(ENDPOINT + "/{id}/flag", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(cellRequest)));
+        resultActions
+                .andExpect(status().is(HttpStatus.OK.value()))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.game_id", is(id)));
     }
+
+    private String toJson(Object aObject) {
+        Gson gson = new Gson();
+        return gson.toJson(aObject);
+    }
+
 }
