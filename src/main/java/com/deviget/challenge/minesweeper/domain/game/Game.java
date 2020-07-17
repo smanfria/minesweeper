@@ -1,21 +1,24 @@
-package com.deviget.challenge.minesweeper.domain;
+package com.deviget.challenge.minesweeper.domain.game;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Game {
     private final String username;
     private final Board board;
     private final LocalDateTime startTime;
+    private final String id;
     private LocalDateTime endTime;
     private Status status;
 
 
     private Game(String username, int rows, int columns, int mines) {
         this.username = username;
+        this.id = username + "-" + UUID.randomUUID().toString();
         this.board = Board.create(rows, columns, mines);
-        this.startTime = LocalDateTime.now();
         this.status = Status.PLAYING;
+        this.startTime = LocalDateTime.now();
     }
 
     public static Game create(String username, int rows, int columns, int mines) {
@@ -63,6 +66,10 @@ public class Game {
 
     public void flag(int row, int column) {
         board.flag(row, column);
+    }
+
+    public String getId() {
+        return id;
     }
 
     private void checkGameStatus() {

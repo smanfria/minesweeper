@@ -1,4 +1,4 @@
-package com.deviget.challenge.minesweeper.domain;
+package com.deviget.challenge.minesweeper.domain.game;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package com.deviget.challenge.minesweeper.domain;
+package com.deviget.challenge.minesweeper.domain.game;
 
 public abstract class Cell {
     private static final String NOT_REVELED_CELL = " ";

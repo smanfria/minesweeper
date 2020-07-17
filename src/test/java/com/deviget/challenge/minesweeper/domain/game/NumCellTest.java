@@ -1,5 +1,7 @@
-package com.deviget.challenge.minesweeper.domain;
+package com.deviget.challenge.minesweeper.domain.game;
 
+import com.deviget.challenge.minesweeper.domain.game.MineExplosionException;
+import com.deviget.challenge.minesweeper.domain.game.NumCell;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
