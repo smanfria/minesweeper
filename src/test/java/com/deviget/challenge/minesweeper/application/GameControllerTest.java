@@ -1,6 +1,7 @@
 package com.deviget.challenge.minesweeper.application;
 
 import com.deviget.challenge.minesweeper.domain.*;
+import com.deviget.challenge.minesweeper.domain.game.Status;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,9 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.time.Duration;
+import java.util.ArrayList;
 
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -72,7 +76,8 @@ class GameControllerTest {
         final String username = "test";
         final String id = "gameId";
 
-        Mockito.when(service.get(id)).thenReturn(new GameDTO(id, username));
+        Mockito.when(service.get(id)).thenReturn(new GameDTO(id, username, Duration.ZERO, Status.PLAYING,
+                new BoardDTO(10, 10, 10, new ArrayList<>())));
 
         final ResultActions resultActions = mvc.perform(get(ENDPOINT + "/{id}", id));
 
@@ -89,7 +94,8 @@ class GameControllerTest {
         CellRequest cellRequest = new CellRequest(0, 0);
 
 
-        Mockito.when(service.reveal(id, cellRequest)).thenReturn(new GameDTO(id, username));
+        Mockito.when(service.reveal(id, cellRequest)).thenReturn(new GameDTO(id, username, Duration.ZERO, Status.PLAYING,
+                new BoardDTO(10, 10, 10, new ArrayList<>())));
 
 
         final ResultActions resultActions = mvc.perform(put(ENDPOINT + "/{id}/reveal", id)
@@ -107,7 +113,8 @@ class GameControllerTest {
         final String id = "gameId";
         CellRequest cellRequest = new CellRequest(0, 0);
 
-        Mockito.when(service.flag(id, cellRequest)).thenReturn(new GameDTO(id, username));
+        Mockito.when(service.flag(id, cellRequest)).thenReturn(new GameDTO(id, username, Duration.ZERO, Status.PLAYING,
+                new BoardDTO(10, 10, 10, new ArrayList<>())));
 
         final ResultActions resultActions = mvc.perform(put(ENDPOINT + "/{id}/flag", id)
                 .contentType(MediaType.APPLICATION_JSON)

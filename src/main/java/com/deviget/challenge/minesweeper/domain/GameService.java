@@ -36,6 +36,6 @@ public class GameService {
     }
 
     private GameDTO toDto(Game game) {
-        return new GameDTO(game.getId(), game.getUsername());
+        return Mapper.INSTANCE.transform(game);
     }
 }

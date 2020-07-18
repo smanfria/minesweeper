@@ -21,7 +21,7 @@ public class Validator {
     }
 
     static void validate(int value, int values) {
-        if (value < 0 || value > values) {
+        if (value < 0 || value >= values) {
             throw new IllegalArgumentException("Invalid cell value [" + value + "].");
         }
     }

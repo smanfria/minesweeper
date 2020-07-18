@@ -2,6 +2,10 @@ package com.deviget.challenge.minesweeper.domain.game;
 
 public class MineCell extends Cell {
 
+    MineCell(int row, int column) {
+        super(row, column);
+    }
+
     @Override
     public String toString() {
         return print();

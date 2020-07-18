@@ -6,14 +6,25 @@ public abstract class Cell {
 
     private boolean flagged;
     private boolean reveled;
+    private final boolean empty;
 
-    Cell(boolean flagged, boolean reveled) {
+    private final int row;
+    private final int column;
+
+    Cell(int row, int column, boolean flagged, boolean reveled, boolean empty) {
         this.flagged = flagged;
         this.reveled = reveled;
+        this.row = row;
+        this.column = column;
+        this.empty = empty;
     }
 
-    Cell() {
-        this(false, false);
+    Cell(int row, int column) {
+        this(row, column, false, false, false);
+    }
+
+    Cell(int row, int column, boolean empty) {
+        this(row, column, false, false, empty);
     }
 
     void reveal() throws MineExplosionException {
@@ -30,7 +41,7 @@ public abstract class Cell {
 
     abstract boolean isMine();
 
-    String print() {
+    public String print() {
         if (this.isReveled()) {
             return doPrint();
         }
@@ -53,8 +64,20 @@ public abstract class Cell {
         return reveled;
     }
 
+    boolean isEmpty() {
+        return empty;
+    }
+
     protected void setReveled(boolean reveled) {
         this.reveled = reveled;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
     }
 
     protected abstract String doPrint();

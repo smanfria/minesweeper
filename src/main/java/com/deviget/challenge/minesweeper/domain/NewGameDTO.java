@@ -8,7 +8,6 @@ public class NewGameDTO {
     String username;
 
     public NewGameDTO(String gameId, String username) {
-
         this.gameId = gameId;
         this.username = username;
     }

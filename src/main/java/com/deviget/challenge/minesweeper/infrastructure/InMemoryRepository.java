@@ -1,5 +1,6 @@
 package com.deviget.challenge.minesweeper.infrastructure;
 
+import com.deviget.challenge.minesweeper.domain.GameNotFoundException;
 import com.deviget.challenge.minesweeper.domain.GameRepository;
 import com.deviget.challenge.minesweeper.domain.game.Game;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,10 @@ public class InMemoryRepository implements GameRepository {
 
     @Override
     public Game get(String gameId) {
-        return repo.get(gameId);
+        Game game = repo.get(gameId);
+        if (game == null) {
+            throw new GameNotFoundException();
+        }
+        return game;
     }
 }

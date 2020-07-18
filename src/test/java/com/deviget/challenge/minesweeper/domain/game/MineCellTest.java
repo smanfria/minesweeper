@@ -1,7 +1,5 @@
 package com.deviget.challenge.minesweeper.domain.game;
 
-import com.deviget.challenge.minesweeper.domain.game.MineCell;
-import com.deviget.challenge.minesweeper.domain.game.MineExplosionException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,13 +9,13 @@ class MineCellTest {
 
     @Test
     void isMine() {
-        final MineCell mineCell = new MineCell();
+        final MineCell mineCell = new MineCell(0, 0);
         Assertions.assertTrue(mineCell.isMine());
     }
 
     @Test
     void print() {
-        final MineCell mineCell = new MineCell();
+        final MineCell mineCell = new MineCell(0, 0);
         Assertions.assertEquals(" ", mineCell.print());
         try {
             mineCell.reveal();
@@ -30,26 +28,26 @@ class MineCellTest {
     @Test
     void reveal() {
         assertThrows(MineExplosionException.class, () -> {
-            final MineCell cell = new MineCell();
+            final MineCell cell = new MineCell(0, 0);
             cell.reveal();
         });
     }
 
     @Test
     void isFlagged() {
-        final MineCell mineCell = new MineCell();
+        final MineCell mineCell = new MineCell(0, 0);
         Assertions.assertFalse(mineCell.isFlagged());
     }
 
     @Test
     void isReveled() {
-        final MineCell mineCell = new MineCell();
+        final MineCell mineCell = new MineCell(0, 0);
         Assertions.assertFalse(mineCell.isReveled());
     }
 
     @Test
     void flag() {
-        final MineCell mineCell = new MineCell();
+        final MineCell mineCell = new MineCell(0, 0);
         Assertions.assertFalse(mineCell.isFlagged());
         Assertions.assertFalse(mineCell.isReveled());
 

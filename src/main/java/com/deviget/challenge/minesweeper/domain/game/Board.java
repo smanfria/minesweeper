@@ -41,15 +41,15 @@ public class Board {
         }
     }
 
-    int getRows() {
+    public int getRows() {
         return rows;
     }
 
-    int getColumns() {
+    public int getColumns() {
         return columns;
     }
 
-    int getMines() {
+    public int getMines() {
         return mines;
     }
 
@@ -68,11 +68,16 @@ public class Board {
 
             if (!visited[currentRow][currentColumn]) {
                 visited[currentRow][currentColumn] = true;
-                revealCell(currentRow, currentColumn);
-                List<Integer[]> unvisitedNotMineNeighbors = getUnvisitedNotMineNeighbors(currentRow, currentColumn, cells, visited);
-                queue.addAll(unvisitedNotMineNeighbors);
+                Cell cell = cells[currentRow][currentColumn];
+                revealCell(cell);
+                if (cell.isEmpty()) {
+                    List<Integer[]> unvisitedNotMineNeighbors = getUnvisitedNotMineNeighbors(currentRow, currentColumn, cells, visited);
+                    queue.addAll(unvisitedNotMineNeighbors);
+                }
             }
         }
+        //TODO remove
+        print();
     }
 
     void flag(int row, int column) {
@@ -81,8 +86,21 @@ public class Board {
         cell.flag();
     }
 
-    private void revealCell(Integer row, Integer column) throws MineExplosionException {
-        Cell cell = cells[row][column];
+    public List<Cell> getModifiedCells() {
+        List<Cell> modifiedCells = new ArrayList<>();
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; column++) {
+                Cell cell = cells[row][column];
+
+                if (cell.isFlagged() || cell.isReveled()) {
+                    modifiedCells.add(cell);
+                }
+            }
+        }
+        return modifiedCells;
+    }
+
+    private void revealCell(Cell cell) throws MineExplosionException {
         reveledCount = reveledCount + 1;
         cell.reveal();
     }
@@ -94,7 +112,10 @@ public class Board {
             final Integer row = cell[0];
             final Integer column = cell[1];
             final Cell currentCell = cells[row][column];
-            return !visited[row][column] && !currentCell.isMine() && !currentCell.isReveled() && !currentCell.isFlagged();
+            return !visited[row][column] &&
+                    !currentCell.isMine() &&
+                    !currentCell.isReveled() &&
+                    !currentCell.isFlagged();
         }).collect(Collectors.toList());
     }
 
@@ -129,7 +150,7 @@ public class Board {
                 final Cell currentCell = cells[currentRow][currentColumn];
                 if (currentCell == null || !currentCell.isMine()) {
                     int totalMines = getNeighborsMines(currentRow, currentColumn, cells);
-                    cells[currentRow][currentColumn] = new NumCell(totalMines);
+                    cells[currentRow][currentColumn] = new NumCell(currentRow, currentColumn, totalMines);
                     List<Integer[]> unvisitedNeighbors = getUnvisitedNeighbors(currentRow, currentColumn, cells, visited);
                     queue.addAll(unvisitedNeighbors);
                 }
@@ -169,7 +190,7 @@ public class Board {
         for (int i = 0; i < mines; i++) {
             int row = r.nextInt(rows);
             int column = r.nextInt(columns);
-            cells[row][column] = new MineCell();
+            cells[row][column] = new MineCell(row, column);
         }
     }
 

@@ -15,7 +15,7 @@ public class Game {
 
     private Game(String username, int rows, int columns, int mines) {
         this.username = username;
-        this.id = username + "-" + UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString();
         this.board = Board.create(rows, columns, mines);
         this.status = Status.PLAYING;
         this.startTime = LocalDateTime.now();
@@ -70,6 +70,14 @@ public class Game {
 
     public String getId() {
         return id;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 
     private void checkGameStatus() {

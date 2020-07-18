@@ -3,8 +3,8 @@ package com.deviget.challenge.minesweeper.domain.game;
 public class NumCell extends Cell {
     private final int neighborsMines;
 
-    public NumCell(int neighborsMines) {
-        super();
+    public NumCell(int row, int column, int neighborsMines) {
+        super(row, column, neighborsMines == 0);
         Validator.validatePositive(neighborsMines, "neighborsMines");
         this.neighborsMines = neighborsMines;
     }
