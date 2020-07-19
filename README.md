@@ -7,6 +7,7 @@ RESTful API
 
 API client
 * https://github.com/smanfria/minesweeper-client
+I do not have any experience with Golang, but I tried to use it to learn something new.
 
 ## The Game
 Develop the classic game of [Minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game))
