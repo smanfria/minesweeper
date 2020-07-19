@@ -1,4 +1,4 @@
-package com.deviget.challenge.minesweeper.domain;
+package com.deviget.challenge.minesweeper.domain.repository;
 
 import com.deviget.challenge.minesweeper.domain.game.Game;
 

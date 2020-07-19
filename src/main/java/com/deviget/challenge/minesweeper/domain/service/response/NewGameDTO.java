@@ -1,4 +1,4 @@
-package com.deviget.challenge.minesweeper.domain;
+package com.deviget.challenge.minesweeper.domain.service.response;
 
 import lombok.Value;
 

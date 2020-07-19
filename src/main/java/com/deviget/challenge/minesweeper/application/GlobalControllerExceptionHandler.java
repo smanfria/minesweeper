@@ -1,6 +1,6 @@
 package com.deviget.challenge.minesweeper.application;
 
-import com.deviget.challenge.minesweeper.domain.GameNotFoundException;
+import com.deviget.challenge.minesweeper.domain.repository.GameNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

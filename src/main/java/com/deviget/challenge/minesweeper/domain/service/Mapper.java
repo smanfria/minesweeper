@@ -1,5 +1,8 @@
-package com.deviget.challenge.minesweeper.domain;
+package com.deviget.challenge.minesweeper.domain.service;
 
+import com.deviget.challenge.minesweeper.domain.service.response.BoardDTO;
+import com.deviget.challenge.minesweeper.domain.service.response.CellDTO;
+import com.deviget.challenge.minesweeper.domain.service.response.GameDTO;
 import com.deviget.challenge.minesweeper.domain.game.Board;
 import com.deviget.challenge.minesweeper.domain.game.Cell;
 import com.deviget.challenge.minesweeper.domain.game.Game;

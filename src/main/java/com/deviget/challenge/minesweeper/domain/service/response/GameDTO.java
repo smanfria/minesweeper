@@ -1,4 +1,4 @@
-package com.deviget.challenge.minesweeper.domain;
+package com.deviget.challenge.minesweeper.domain.service.response;
 
 import com.deviget.challenge.minesweeper.domain.game.Status;
 import lombok.AllArgsConstructor;

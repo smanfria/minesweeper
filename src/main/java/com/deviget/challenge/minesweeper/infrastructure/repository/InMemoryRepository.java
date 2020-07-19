@@ -1,7 +1,7 @@
-package com.deviget.challenge.minesweeper.infrastructure;
+package com.deviget.challenge.minesweeper.infrastructure.repository;
 
-import com.deviget.challenge.minesweeper.domain.GameNotFoundException;
-import com.deviget.challenge.minesweeper.domain.GameRepository;
+import com.deviget.challenge.minesweeper.domain.repository.GameNotFoundException;
+import com.deviget.challenge.minesweeper.domain.repository.GameRepository;
 import com.deviget.challenge.minesweeper.domain.game.Game;
 import org.springframework.stereotype.Repository;
 

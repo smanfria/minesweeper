@@ -1,7 +1,12 @@
 package com.deviget.challenge.minesweeper.application;
 
-import com.deviget.challenge.minesweeper.domain.*;
 import com.deviget.challenge.minesweeper.domain.game.Status;
+import com.deviget.challenge.minesweeper.domain.service.GameService;
+import com.deviget.challenge.minesweeper.domain.service.request.CellRequest;
+import com.deviget.challenge.minesweeper.domain.service.request.GameRequest;
+import com.deviget.challenge.minesweeper.domain.service.response.BoardDTO;
+import com.deviget.challenge.minesweeper.domain.service.response.GameDTO;
+import com.deviget.challenge.minesweeper.domain.service.response.NewGameDTO;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;

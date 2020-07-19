@@ -1,6 +1,11 @@
-package com.deviget.challenge.minesweeper.domain;
+package com.deviget.challenge.minesweeper.domain.service;
 
 import com.deviget.challenge.minesweeper.domain.game.Game;
+import com.deviget.challenge.minesweeper.domain.repository.GameRepository;
+import com.deviget.challenge.minesweeper.domain.service.request.CellRequest;
+import com.deviget.challenge.minesweeper.domain.service.request.GameRequest;
+import com.deviget.challenge.minesweeper.domain.service.response.GameDTO;
+import com.deviget.challenge.minesweeper.domain.service.response.NewGameDTO;
 import org.springframework.stereotype.Service;
 
 @Service
