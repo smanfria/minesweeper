@@ -1,8 +1,11 @@
 package com.deviget.challenge.minesweeper.domain.game;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class Board {
     private final int rows;
     private final int columns;
@@ -37,7 +40,7 @@ public class Board {
 
     void print() {
         for (Cell[] row : cells) {
-            System.out.println(Arrays.toString(row));
+            log.info(Arrays.toString(row));
         }
     }
 
@@ -76,8 +79,6 @@ public class Board {
                 }
             }
         }
-        //TODO remove
-        print();
     }
 
     void flag(int row, int column) {

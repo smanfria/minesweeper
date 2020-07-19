@@ -59,13 +59,16 @@ public class Game {
             board.reveal(row, column);
         } catch (MineExplosionException e) {
             this.lostGame();
+            board.print();
             return;
         }
         this.checkGameStatus();
+        board.print();
     }
 
     public void flag(int row, int column) {
         board.flag(row, column);
+        board.print();
     }
 
     public String getId() {

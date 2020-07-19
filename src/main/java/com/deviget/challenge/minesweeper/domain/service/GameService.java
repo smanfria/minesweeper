@@ -6,9 +6,11 @@ import com.deviget.challenge.minesweeper.domain.service.request.CellRequest;
 import com.deviget.challenge.minesweeper.domain.service.request.GameRequest;
 import com.deviget.challenge.minesweeper.domain.service.response.GameDTO;
 import com.deviget.challenge.minesweeper.domain.service.response.NewGameDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class GameService {
 
     private final GameRepository repository;
@@ -18,6 +20,7 @@ public class GameService {
     }
 
     public NewGameDTO create(GameRequest request) {
+        log.info("Creating a new game:" + request);
         final Game game = Game.create(request.getUsername(), request.getRows(), request.getColumns(), request.getMines());
         repository.save(game);
         return new NewGameDTO(game.getId(), game.getUsername());
@@ -30,12 +33,14 @@ public class GameService {
 
     public GameDTO reveal(String gameId, CellRequest cellRequest) {
         final Game game = repository.get(gameId);
+        log.info("Revealing row:" + cellRequest.getRow() + " column:" + cellRequest.getColumn() + " for game:" + gameId);
         game.reveal(cellRequest.getRow(), cellRequest.getColumn());
         return toDto(game);
     }
 
     public GameDTO flag(String gameId, CellRequest cellRequest) {
         final Game game = repository.get(gameId);
+        log.info("Flagging row:" + cellRequest.getRow() + " column:" + cellRequest.getColumn() + " for game:" + gameId);
         game.flag(cellRequest.getRow(), cellRequest.getColumn());
         return toDto(game);
     }
