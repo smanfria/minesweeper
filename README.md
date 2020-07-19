@@ -1,6 +1,9 @@
 # minesweeper
 Sebastian Manfria
 
+RESTful API
+https://minesweeper-sebastian-manfria.herokuapp.com/minesweeper/swagger-ui.html
+
 ## The Game
 Develop the classic game of [Minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game))
 
