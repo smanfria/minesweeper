@@ -27,20 +27,21 @@ public class GameService {
     }
 
     public GameDTO get(String gameId) {
+        log.info("Getting game:" + gameId);
         final Game game = repository.get(gameId);
         return toDto(game);
     }
 
     public GameDTO reveal(String gameId, CellRequest cellRequest) {
-        final Game game = repository.get(gameId);
         log.info("Revealing row:" + cellRequest.getRow() + " column:" + cellRequest.getColumn() + " for game:" + gameId);
+        final Game game = repository.get(gameId);
         game.reveal(cellRequest.getRow(), cellRequest.getColumn());
         return toDto(game);
     }
 
     public GameDTO flag(String gameId, CellRequest cellRequest) {
-        final Game game = repository.get(gameId);
         log.info("Flagging row:" + cellRequest.getRow() + " column:" + cellRequest.getColumn() + " for game:" + gameId);
+        final Game game = repository.get(gameId);
         game.flag(cellRequest.getRow(), cellRequest.getColumn());
         return toDto(game);
     }

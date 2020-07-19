@@ -28,9 +28,7 @@ public abstract class Cell {
     }
 
     void reveal() throws MineExplosionException {
-        if (!this.isFlagged()) {
-            this.doReveal();
-        }
+        this.doReveal();
     }
 
     void flag() {
